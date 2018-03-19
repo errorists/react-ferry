@@ -21,7 +21,7 @@
   "dependencies": {
     "color": "2.0.0",
     "expo": "^25.0.0",
-    "moment": "2.18.1",
+    "moment": "^2.18.1",
     "prop-types": "^15.6.1",
     "react": "16.2.0",
     "react-native": "0.52.0",

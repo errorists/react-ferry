@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Image, StyleSheet, SafeAreaView, Text, TouchableHighlight, UIManager , Dimensions, Platform } from 'react-native';
+import { View, Image, StyleSheet, SafeAreaView, Text, TextInput, TouchableHighlight, UIManager , Dimensions, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import TouchableScale from 'react-native-touchable-scale';
 
@@ -10,31 +10,13 @@ import { changeCurrencyAmount } from '../actions/currencies';
 let counter = 0
 
 class ValueInput extends React.Component {
-	constructor(props, context) {
-		super(props, context)
-	  
-		this.state = {
-			scale: 1
-		}
+	constructor(props) {
+		super(props);
 	}
-	
-	handleTextLayout = (e) => {
-		// const { scale } = this.state
-		// const { width, x } = e.nativeEvent.layout
-		// const maxWidth = 360
-		// const actualWidth = width / scale
-		// const newScale = maxWidth / actualWidth
-		// console.log( width, x, maxWidth, actualWidth )
-		// if (actualWidth > maxWidth ) {
-		// 	this.setState({ scale: newScale  })
-		// } else if (x > width) {
-		// 	this.setState({ scale: 1 })
-		// }
-	};
   
 	render() {
 		const { value } = this.props
-		const { scale } = this.state
+		const { hasCaret } = this.props
 			
 		const language = navigator.language || 'en-US'
 		let formattedValue = parseFloat(value).toLocaleString(language, {
@@ -46,22 +28,22 @@ class ValueInput extends React.Component {
 	  
 		if (trailingZeros)
 			formattedValue += trailingZeros
+
+		const caret = hasCaret ? (
+			<View style={styles.inputCaret} />
+			) : (
+			null
+			);
 	  
 		return (
 			<View style={styles.inputContainer}>
 				<Text
 					children={formattedValue}
-					numberOfLines={1}
-					onLayout={this.handleTextLayout}
-					selectable={true}
 					style={[
 						styles.inputLabel,
-						{ transform: [ { scale }  ] }
 					]}
 				/>
-				<View
-
-				></View>
+				{caret}
 			</View>
 		)
 	}
@@ -170,7 +152,7 @@ class Home extends React.Component {
 						<View style={{ flex: 1.5}}></View>
 						<View style={{ flex: 2, justifyContent: 'space-between'}}>
 							<TypeButton buttonText={this.props.topType} onPress={this.handlePressTopValue} ></TypeButton>
-							<ValueInput value={displayValue} ></ValueInput>
+							<ValueInput hasCaret={true} value={displayValue} ></ValueInput>
 						</View>
 					</View>
 					<View style={styles.separator}>
@@ -264,18 +246,27 @@ const styles = StyleSheet.create({
 	inputContainer: {
 		minHeight: 60,
 		flex: 1,
-		justifyContent: 'flex-end',
+		flexDirection: 'row',
+		justifyContent: 'center',
 		alignItems: 'center',
 	},
 	inputLabel: {
-		width: '96%',
 		textAlignVertical: 'center',
 		textAlign: 'center',
 		height: 60,
+		maxWidth: '92%',
 		color: '#FFF',
 		fontSize: 44,
 		lineHeight: 62,
 		fontFamily: 'expandedRegular',
+		marginLeft: 8,
+		marginRight: 4,
+	},
+	inputCaret: {
+		width: 4,
+		height: 36,
+		borderRadius: 2,
+		backgroundColor: '#FF9502',
 	},
 	container: {
 		flex: 1,
