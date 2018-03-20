@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo';
 
 import styles from './styles';
 
-const TINT_COLOR = '#FF9500';
+const TINT_COLOR = '#EEFF41';
 
 const CloseBar = ({onPress}) => (
     <View style={styles.closeBar}>

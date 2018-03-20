@@ -13,7 +13,7 @@ EStyleSheet.build({
 	$primaryText: '#FFF',
 	$secondaryText: '#999',
 	$invertText: '#222',
-	$selectionColor: '#FF9500'
+	$selectionColor: '#EEFF41',
 });
 
 export default class App extends React.Component {

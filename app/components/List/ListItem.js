@@ -8,10 +8,12 @@ const ListItem = ({ shortLabel, fullLabel, onPress, selected=false }) => {
 
     const listItemStyles = [styles.listItem]
     const listShortLabelStyles = [styles.currencyLabel]
+    const listLongLabelStyles = [styles.titleLabel]
 
     if (selected === true) {
         listItemStyles.push(styles.selectedItem),
         listShortLabelStyles.push(styles.selectedLabel);
+        listLongLabelStyles.push(styles.selectedLabel);
 	}
 
 	return (
@@ -22,7 +24,7 @@ const ListItem = ({ shortLabel, fullLabel, onPress, selected=false }) => {
         >
             <View style={listItemStyles}>
                 <Text style={listShortLabelStyles}>{shortLabel}</Text>
-                <Text style={styles.titleLabel}>{fullLabel}</Text>
+                <Text style={listLongLabelStyles}>{fullLabel}</Text>
             </View>
         </TouchableHighlight>
 	);

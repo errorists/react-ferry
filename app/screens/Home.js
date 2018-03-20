@@ -1,54 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Image, StyleSheet, SafeAreaView, Text, TextInput, TouchableHighlight, UIManager , Dimensions, Platform, Animated } from 'react-native';
+import { View, Image, StyleSheet, SafeAreaView, Text, TouchableHighlight, Dimensions, Platform, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import TouchableScale from 'react-native-touchable-scale';
 
+import { Caret } from '../components/Caret';
 import { TypeButton } from '../components/TypeButton';
 import { changeCurrencyAmount } from '../actions/currencies';
-  
-let counter = 0
-
-class BlinkView extends React.Component {
-	state = {
-		blinkAnim: new Animated.Value(0),
-	}
-  
-	componentDidMount() {
-		this.runAnimation()
-	}
-	componentWillUnmount() {
-		Animated.timing(
-			this.state.blinkAnim
-		).stop();
-	}
-
-	runAnimation() {
-		this.state.blinkAnim.setValue(0);
-		Animated.timing(this.state.blinkAnim, {
-			toValue: 1,
-			duration: 750,
-		}).start(() => this.runAnimation());
-	}
-  
-	render() {
-		let { blinkAnim } = this.state;
-  
-		return (
-			<Animated.View
-				style={{
-					width: 4,
-					height: 34,
-					borderRadius: 2,
-					backgroundColor: '#FF9502',
-					opacity: blinkAnim,
-				}}
-			>
-				{this.props.children}
-			</Animated.View>
-			);
-	}
-}
+import styles from './styles'
 
 class ValueInput extends React.Component {
   
@@ -61,14 +20,14 @@ class ValueInput extends React.Component {
 			useGrouping: true,
 			maximumFractionDigits: 6
 		})
-	  
+		
 		const trailingZeros = value.match(/\.0*$/)
 	  
 		if (trailingZeros)
 			formattedValue += trailingZeros
 
 		const caret = hasCaret ? (
-			<BlinkView/>
+			<Caret/>
 			) : (
 			null
 			);
@@ -76,6 +35,7 @@ class ValueInput extends React.Component {
 		return (
 			<View style={styles.inputContainer}>
 				<Text
+					selectable={true}
 					children={formattedValue}
 					style={[
 						styles.inputLabel,
@@ -108,8 +68,6 @@ class Key extends React.Component {
 		)
 	}
 }
-
-
   
 class Home extends React.Component {
 	constructor(props, context) {
@@ -281,81 +239,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(Home);
-
-const styles = StyleSheet.create({
-	inputContainer: {
-		minHeight: 60,
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	inputLabel: {
-		textAlignVertical: 'center',
-		textAlign: 'center',
-		height: 60,
-		maxWidth: '92%',
-		color: '#FFF',
-		fontSize: 44,
-		lineHeight: 62,
-		fontFamily: 'expandedRegular',
-		marginLeft: 8,
-		marginRight: 4,
-	},
-	inputCaret: {
-		width: 4,
-		height: 36,
-		borderRadius: 2,
-		backgroundColor: '#FF9502',
-	},
-	container: {
-		flex: 1,
-		backgroundColor: '#000'
-	},
-	inputFrame: {
-		flex: 2,
-		backgroundColor: '#000',
-	},
-	separator: {
-		height: 40,
-		paddingHorizontal: '20%',
-		justifyContent: 'center',
-	},
-	separatorLine: {
-		height: 2,
-		backgroundColor: '#222',
-		borderRadius: 1,
-	},
-	tabFrame: {
-		height: 56,	
-		backgroundColor: '#000',
-	},
-	keypadFrame: {
-		flex: 3,
-		borderBottomWidth: 34,
-		borderBottomColor: '#FF9502',
-		alignItems: 'stretch',
-	},
-	key: {
-		flex: 1,
-		minHeight: 60,
-		backgroundColor: '#FF9502',
-		justifyContent: 'center',
-		alignItems: 'center',
-	},
-	keyLabel: {
-		textAlign: 'center',
-		textAlignVertical: 'center',
-		height: '100%',
-		fontSize: 34,
-		lineHeight: 76,
-		fontFamily: 'expandedLight',
-		color: '#000'
-	},
-	row: {
-		flex: 1,
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		marginBottom: 1,
-	}
-})

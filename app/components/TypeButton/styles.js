@@ -13,7 +13,7 @@ export default EStyleSheet.create({
         textAlign: 'center',
         fontSize: 50,
         lineHeight: 64,
-        color: '$secondaryText',
+        color: '#EEFF41',
         letterSpacing: 2,
     },
 });

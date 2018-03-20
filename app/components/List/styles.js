@@ -27,13 +27,17 @@ export default EStyleSheet.create({
         letterSpacing: 2,
     },
     titleLabel: {
-        fontSize: 20,
+        fontFamily: 'expandedRegular',
+        fontSize: 18,
+        height: '100%',
+        lineHeight: 64,
+        textAlignVertical: 'center',
         color: '#FFF',
         marginBottom: 1,
         fontWeight: '400',
     },
     selectedLabel: {
-        color: '#FFF',
+        color: '#000',
     },
     header: {
         position: 'absolute',
