@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Image, StyleSheet, SafeAreaView, Text, TextInput, TouchableHighlight, UIManager , Dimensions, Platform } from 'react-native';
+import { View, Image, StyleSheet, SafeAreaView, Text, TextInput, TouchableHighlight, UIManager , Dimensions, Platform, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import TouchableScale from 'react-native-touchable-scale';
 
@@ -9,10 +9,48 @@ import { changeCurrencyAmount } from '../actions/currencies';
   
 let counter = 0
 
-class ValueInput extends React.Component {
-	constructor(props) {
-		super(props);
+class BlinkView extends React.Component {
+	state = {
+		blinkAnim: new Animated.Value(0),
 	}
+  
+	componentDidMount() {
+		this.runAnimation()
+	}
+	componentWillUnmount() {
+		Animated.timing(
+			this.state.blinkAnim
+		).stop();
+	}
+
+	runAnimation() {
+		this.state.blinkAnim.setValue(0);
+		Animated.timing(this.state.blinkAnim, {
+			toValue: 1,
+			duration: 750,
+		}).start(() => this.runAnimation());
+	}
+  
+	render() {
+		let { blinkAnim } = this.state;
+  
+		return (
+			<Animated.View
+				style={{
+					width: 4,
+					height: 32,
+					borderRadius: 2,
+					backgroundColor: '#FF9502',
+					opacity: blinkAnim,
+				}}
+			>
+				{this.props.children}
+			</Animated.View>
+			);
+	}
+}
+
+class ValueInput extends React.Component {
   
 	render() {
 		const { value } = this.props
@@ -30,7 +68,7 @@ class ValueInput extends React.Component {
 			formattedValue += trailingZeros
 
 		const caret = hasCaret ? (
-			<View style={styles.inputCaret} />
+			<BlinkView/>
 			) : (
 			null
 			);
@@ -70,6 +108,8 @@ class Key extends React.Component {
 		)
 	}
 }
+
+
   
 class Home extends React.Component {
 	constructor(props, context) {
@@ -287,9 +327,8 @@ const styles = StyleSheet.create({
 		borderRadius: 1,
 	},
 	tabFrame: {
-		height: 48,	
-		backgroundColor: '#FF9502',
-		marginBottom: 1,
+		height: 56,	
+		backgroundColor: '#000',
 	},
 	keypadFrame: {
 		flex: 3,
