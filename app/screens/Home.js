@@ -38,7 +38,7 @@ class BlinkView extends React.Component {
 			<Animated.View
 				style={{
 					width: 4,
-					height: 32,
+					height: 34,
 					borderRadius: 2,
 					backgroundColor: '#FF9502',
 					opacity: blinkAnim,
@@ -98,9 +98,9 @@ class Key extends React.Component {
 				style={[
 					styles.key,
 				]}
-				activeScale={0.94}
+				activeScale={0.9}
 				pressInTension={750}
-				pressInFriction={1}
+				pressInFriction={550}
 				pressOutTension={90}
 				pressOutFriction={10}
 			>{text}{image}
