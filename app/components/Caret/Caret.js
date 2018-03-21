@@ -1,7 +1,7 @@
 import React from 'react';
 import { Animated, View } from 'react-native';
 
-const tintColor = '#EEFF41';
+const tintColor = '#3D5AFE';
 
 class Caret extends React.Component {
 	state = {
@@ -32,7 +32,7 @@ class Caret extends React.Component {
 			<Animated.View
 				style={{
 					width: 4,
-					height: 34,
+					height: 32,
 					borderRadius: 2,
 					backgroundColor: tintColor,
 					opacity: blinkAnim,

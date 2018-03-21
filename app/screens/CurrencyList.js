@@ -22,7 +22,7 @@ class CurrencyList extends Component {
 
     render() {
         return (
-            <SafeAreaView style={{ flex:1, backgroundColor:"#000" }}>
+            <SafeAreaView style={{ flex:1, backgroundColor:"#FFF" }}>
                 <FlatList
                     data={currencies}
                     ListHeaderComponent={ <View style={{ flex:1, height: 80 }} /> }

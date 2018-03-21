@@ -34,7 +34,7 @@ export default class App extends React.Component {
 		return (
 			<Provider store={store}>
 				<View style={{ flex: 1, backgroundColor: '#000' }}>
-					<StatusBar barStyle="light-content"/>
+					<StatusBar barStyle="dark-content"/>
 					{
 						this.state.fontLoaded ? (
 							<Navigator />

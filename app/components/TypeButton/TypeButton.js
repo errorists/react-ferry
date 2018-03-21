@@ -6,7 +6,7 @@ import styles from './styles';
 
 const TypeButton = ({ onPress, buttonText }) => {
 
-    var tapHighlight = '#333';
+    var tapHighlight = '#EFF0FA';
 
     return (
         <TouchableHighlight underlayColor={tapHighlight} style={styles.button} onPress={onPress}>

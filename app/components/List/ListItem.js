@@ -19,7 +19,7 @@ const ListItem = ({ shortLabel, fullLabel, onPress, selected=false }) => {
 	return (
         <TouchableHighlight 
             onPress={onPress} 
-            underlayColor={'rgba(255,255,255, 0.15)'}
+            underlayColor={'#EFF0FA'}
             style={styles.listTouch}
         >
             <View style={listItemStyles}>

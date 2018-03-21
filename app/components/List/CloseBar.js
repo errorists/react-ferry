@@ -5,13 +5,13 @@ import { LinearGradient } from 'expo';
 
 import styles from './styles';
 
-const TINT_COLOR = '#EEFF41';
+const TINT_COLOR = '#3D5AFE';
 
 const CloseBar = ({onPress}) => (
     <View style={styles.closeBar}>
         <LinearGradient 
             style={{flex:1, alignItems: 'center' }}
-            colors={['rgba(0,0,0, 0)', 'rgba(0,0,0, 1)']}>
+            colors={['rgba(255,255,255, 0)', 'rgba(231, 243, 243, 1)']}>
             <TouchableOpacity
                 onPress={onPress} 
                 style={{ 

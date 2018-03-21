@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Image, StyleSheet, SafeAreaView, Text, TouchableHighlight, Dimensions, Platform, Animated } from 'react-native';
+import { View, Image, StyleSheet, SafeAreaView, Text, TouchableHighlight, Dimensions, Platform } from 'react-native';
 import { connect } from 'react-redux';
-import TouchableScale from 'react-native-touchable-scale';
 
 import { Caret } from '../components/Caret';
 import { TypeButton } from '../components/TypeButton';
+import { TabBar } from '../components/TabBar';
+import { Key } from '../components/Key';
+
 import { changeCurrencyAmount } from '../actions/currencies';
+
 import styles from './styles'
 
 class ValueInput extends React.Component {
@@ -47,36 +50,12 @@ class ValueInput extends React.Component {
 	}
 }
   
-class Key extends React.Component {
-	render() {
-		const { onPress, text, image, onLongPress } = this.props
-	
-		return (
-			<TouchableScale
-				onPress={onPress}
-				onLongPress={onLongPress}
-				style={[
-					styles.key,
-				]}
-				activeScale={0.9}
-				pressInTension={750}
-				pressInFriction={550}
-				pressOutTension={90}
-				pressOutFriction={10}
-			>{text}{image}
-			</TouchableScale>
-		)
-	}
-}
-  
 class Home extends React.Component {
 	constructor(props, context) {
 		super(props, context)
 		this.state = {
 			value: null,
 			displayValue: this.props.displayValue,
-			operator: null,
-			waitingForOperand: false,
 		}
 	}
 
@@ -91,14 +70,11 @@ class Home extends React.Component {
 		this.setState({
 			value: null,
 			displayValue: '0',
-			operator: null,
-			waitingForOperand: false
 		})
 	}
 	
 	clearLastChar() {
 		const { displayValue } = this.state
-		
 		this.setState({
 			displayValue: displayValue.substring(0, displayValue.length - 1) || '0'
 		})
@@ -110,24 +86,15 @@ class Home extends React.Component {
 		if (!(/\./).test(displayValue)) {
 			this.setState({
 				displayValue: displayValue + '.',
-				waitingForOperand: false
 			})
 		}
 	}
 	
 	inputDigit(digit) {
-		const { displayValue, waitingForOperand } = this.state
-		
-		if (waitingForOperand) {
-			this.setState({
-			displayValue: String(digit),
-			waitingForOperand: false
-			})
-		} else {
-			this.setState({
-			displayValue: displayValue === '0' ? String(digit) : displayValue + digit
-			})
-		}
+		const { displayValue } = this.state
+		this.setState({
+		displayValue: displayValue === '0' ? String(digit) : displayValue + digit
+		})
 	}
 
 	handlePressTopValue = () => {
@@ -141,11 +108,10 @@ class Home extends React.Component {
 		const { displayValue } = this.state
 		
 		const clearDisplay = displayValue !== '0'
-		const clearText = clearDisplay ? 'C' : 'AC'
 		
 		return (
-			<View style={{ flex: 1, backgroundColor: '#000' }} >
-				<View style={styles.container}>
+			<View style={{ flex: 1, backgroundColor: '#EBF5F5' }} >
+				<View style={styles.topContainer}>
 					<View style={styles.inputFrame}>
 						<View style={{ flex: 1.5}}></View>
 						<View style={{ flex: 2, justifyContent: 'space-between'}}>
@@ -163,59 +129,86 @@ class Home extends React.Component {
 						</View>
 						<View style={{ flex: 1.5}}></View>
 					</View>
-					<View style={styles.tabFrame}>
-						
-					</View>
+					<TabBar />
+				</View>
+				<View style={styles.bottomContainer}>
 					<View style={styles.keypadFrame}>
 						<View style={styles.row}>
-							<Key onPress={() => this.inputDigit(1)}
-								text={<Text style={styles.keyLabel}>1</Text>}
+							<Key 
+								onPress={() => this.inputDigit(1)}
+								colors={['#C6FF41', '#D1FF41']}
+								text={<Text style={styles.keyLabel}
+								>1</Text>}
 							></Key>
-							<View style={{ width: 1, backgroundColor: "#000" }}></View>
-							<Key onPress={() => this.inputDigit(2)}
-								text={<Text style={styles.keyLabel}>2</Text>}
+							<Key 
+								onPress={() => this.inputDigit(2)}
+								colors={['#C6FF41', '#D1FF41']}
+								text={<Text style={styles.keyLabel}
+								>2</Text>}
 							></Key>
-							<View style={{ width: 1, backgroundColor: "#000" }}></View>
-							<Key onPress={() => this.inputDigit(3)}
-								text={<Text style={styles.keyLabel}>3</Text>}
-							></Key>
-						</View>
-						<View style={styles.row}>
-							<Key onPress={() => this.inputDigit(4)}
-								text={<Text style={styles.keyLabel}>4</Text>}
-							></Key>
-							<View style={{ width: 1, backgroundColor: "#000" }}></View>
-							<Key onPress={() => this.inputDigit(5)}
-								text={<Text style={styles.keyLabel}>5</Text>}
-							></Key>
-							<View style={{ width: 1, backgroundColor: "#000" }}></View>
-							<Key onPress={() => this.inputDigit(6)}
-								text={<Text style={styles.keyLabel}>6</Text>}
+							<Key 
+								onPress={() => this.inputDigit(3)}
+								colors={['#C6FF41', '#D1FF41']}
+								text={<Text style={styles.keyLabel}
+								>3</Text>}
 							></Key>
 						</View>
 						<View style={styles.row}>
-							<Key onPress={() => this.inputDigit(7)}
-								text={<Text style={styles.keyLabel}>7</Text>}
+							<Key 
+								onPress={() => this.inputDigit(4)}
+								colors={['#D0FF43', '#D9FF41']}
+								text={<Text style={styles.keyLabel}
+								>4</Text>}
 							></Key>
-							<View style={{ width: 1, backgroundColor: "#000" }}></View>
-							<Key onPress={() => this.inputDigit(8)}
-								text={<Text style={styles.keyLabel}>8</Text>}
+							<Key 
+								onPress={() => this.inputDigit(5)}
+								colors={['#D0FF43', '#D9FF41']}
+								text={<Text style={styles.keyLabel}
+								>5</Text>}
 							></Key>
-							<View style={{ width: 1, backgroundColor: "#000" }}></View>
-							<Key onPress={() => this.inputDigit(9)}
-								text={<Text style={styles.keyLabel}>9</Text>}
+							<Key 
+								onPress={() => this.inputDigit(6)}
+								colors={['#D0FF43', '#D9FF41']}
+								text={<Text style={styles.keyLabel}
+								>6</Text>}
 							></Key>
 						</View>
 						<View style={styles.row}>
-							<Key onPress={() => this.inputDot()}
-								text={<Text style={styles.keyLabel}>.</Text>}
+							<Key 
+								onPress={() => this.inputDigit(7)}
+								colors={['#DAFF42', '#E4FE41']}
+								text={<Text style={styles.keyLabel}
+								>7</Text>}
 							></Key>
-							<View style={{ width: 1, backgroundColor: "#000" }}></View>
-							<Key onPress={() => this.inputDigit(0)}
-								text={<Text style={styles.keyLabel}>0</Text>}
+							<Key 
+								onPress={() => this.inputDigit(8)}
+								colors={['#DAFF42', '#E4FE41']}
+								text={<Text style={styles.keyLabel}
+								>8</Text>}
 							></Key>
-							<View style={{ width: 1, backgroundColor: "#000" }}></View>
-							<Key onPress={() => this.clearLastChar()}
+							<Key 
+								onPress={() => this.inputDigit(9)}
+								colors={['#DAFF42', '#E4FE41']}
+								text={<Text style={styles.keyLabel}
+								>9</Text>}
+							></Key>
+						</View>
+						<View style={styles.row}>
+							<Key 
+								onPress={() => this.inputDot()}
+								colors={['#E3FF40', '#EEFF41']}
+								text={<Text style={styles.keyLabel}
+								>.</Text>}
+							></Key>
+							<Key 
+								onPress={() => this.inputDigit(0)}
+								colors={['#E3FF40', '#EEFF41']}
+								text={<Text style={styles.keyLabel}
+								>0</Text>}
+							></Key>
+							<Key 
+								onPress={() => this.clearLastChar()}
+								colors={['#E3FF40', '#EEFF41']}
 								onLongPress={() => this.clearAll() }
 								image={<Image resizeMode='contain' source={require('../assets/images/clearIcon.png')}></Image>}
 							></Key>

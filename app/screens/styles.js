@@ -1,8 +1,22 @@
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-const tintColor = '#EEFF41';
+const tintColor = '#3D5AFE';
 
 export default EStyleSheet.create({
+    topContainer: {
+        flex: 3,
+        backgroundColor: "#FFF",
+        shadowColor: '#00C852',
+        shadowOffset: {height: 0},
+        shadowOpacity: 1,
+        shadowRadius: 30,
+        zIndex: 100,
+    },
+    bottomContainer: {
+        flex: 2,
+        backgroundColor: "#00796B",
+        zIndex: 99,
+    },
     inputContainer: {
 		minHeight: 60,
 		flex: 1,
@@ -15,20 +29,16 @@ export default EStyleSheet.create({
 		textAlign: 'center',
 		height: 60,
 		maxWidth: '92%',
-		color: '#FFF',
-		fontSize: 44,
-		lineHeight: 62,
+		color: '#000',
+		fontSize: 40,
+		lineHeight: 64,
 		fontFamily: 'expandedRegular',
 		marginLeft: 8,
 		marginRight: 4,
 	},
-	container: {
-		flex: 1,
-		backgroundColor: '#000'
-	},
 	inputFrame: {
 		flex: 2,
-		backgroundColor: '#000',
+		backgroundColor: '#FFF',
 	},
 	separator: {
 		height: 40,
@@ -37,39 +47,31 @@ export default EStyleSheet.create({
 	},
 	separatorLine: {
 		height: 4,
-		backgroundColor: '#222',
+		backgroundColor: '#F0F1FC',
 		borderRadius: 2,
 	},
 	tabFrame: {
-		height: 56,	
-		backgroundColor: '#000',
+		height: 60,
+		backgroundColor: '#FFF',
 	},
 	keypadFrame: {
-		flex: 3,
-		borderBottomWidth: 34,
-		borderBottomColor: tintColor,
-		alignItems: 'stretch',
-	},
-	key: {
 		flex: 1,
-		minHeight: 60,
-		backgroundColor: tintColor,
-		justifyContent: 'center',
-		alignItems: 'center',
+		borderBottomWidth: 34,
+		borderBottomColor: '#EEFE42',
+		alignItems: 'stretch',
 	},
 	keyLabel: {
 		textAlign: 'center',
 		textAlignVertical: 'center',
 		height: '100%',
-		fontSize: 34,
-		lineHeight: 76,
+		fontSize: 30,
+		lineHeight: 74,
 		fontFamily: 'expandedLight',
-		color: '#000'
+		color: '#3A6961'
 	},
 	row: {
 		flex: 1,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		marginBottom: 1,
 	},
 })
