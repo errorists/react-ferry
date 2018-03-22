@@ -11,7 +11,7 @@ const ListItem = ({ shortLabel, fullLabel, onPress, selected=false }) => {
     const listLongLabelStyles = [styles.titleLabel]
 
     if (selected === true) {
-        listItemStyles.push(styles.selectedItem),
+        listItemStyles.push(styles.selectedItem);
         listShortLabelStyles.push(styles.selectedLabel);
         listLongLabelStyles.push(styles.selectedLabel);
 	}

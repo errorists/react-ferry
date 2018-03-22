@@ -23,7 +23,7 @@ export default EStyleSheet.create({
         height: 60,
         lineHeight: 64,
         fontSize: 50,
-        color: '$secondaryText',
+        color: '#BFC3CC',
         letterSpacing: 2,
     },
     titleLabel: {
@@ -32,7 +32,7 @@ export default EStyleSheet.create({
         height: '100%',
         lineHeight: 64,
         textAlignVertical: 'center',
-        color: '#FFF',
+        color: '#3A6961',
         marginBottom: 1,
         fontWeight: '400',
     },
