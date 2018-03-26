@@ -64,6 +64,8 @@ class Home extends React.Component {
 		dispatch: PropTypes.func,
 		topType: PropTypes.string,
 		bottomType: PropTypes.string,
+		conversionRate: PropTypes.number,
+		isFetching: PropTypes.bool,
 	};
 	
 	clearAll() {
@@ -108,6 +110,11 @@ class Home extends React.Component {
 		const { displayValue } = this.state
 		
 		const clearDisplay = displayValue !== '0'
+		let returnAmount = (parseFloat(displayValue.replace(",", ".")) * this.props.conversionRate).toFixed(2);
+		let returnCorrected = returnAmount === '0.00' ? '0' : returnAmount;
+		if (this.props.isFetching) {
+			returnCorrected = '...';
+		}
 		
 		return (
 			<View style={{ flex: 1, backgroundColor: '#EBF5F5' }} >
@@ -125,7 +132,7 @@ class Home extends React.Component {
 					<View style={styles.inputFrame}>
 						<View style={{ flex: 2, justifyContent: 'space-between'}}>
 							<TypeButton buttonText={this.props.bottomType} onPress={this.handlePressBottomValue}></TypeButton>
-							<ValueInput value={'0'} ></ValueInput>
+							<ValueInput value={returnCorrected} ></ValueInput>
 						</View>
 						<View style={{ flex: 1.5}}></View>
 					</View>
@@ -223,11 +230,15 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
 	const topType = state.currencies.topType;
 	const bottomType = state.currencies.bottomType;
+	const conversionSelector = state.currencies.conversions[topType] || {};
+	const rates = conversionSelector.rates || {};
 
 	return {
 		topType,
 		bottomType,
 		displayValue: state.currencies.amount,
+		conversionRate: rates[bottomType] || 0,
+		isFetching: conversionSelector.isFetching,
 	};
 };
 
