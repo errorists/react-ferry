@@ -14,6 +14,12 @@ class CurrencyList extends Component {
 		navigation: PropTypes.object,
 	};
     handlePress = () => {
+        const { type } = this.props.navigation.state.params;
+        if (type === 'input') {
+
+        } else if (type === 'return') {
+            
+        }
         this.props.navigation.goBack(null);
     };
     handleClose = () => {

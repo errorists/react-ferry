@@ -100,16 +100,15 @@ class Home extends React.Component {
 	}
 
 	handlePressTopValue = () => {
-		this.props.navigation.navigate('CurrencyList');
+		this.props.navigation.navigate('CurrencyList', { title: 'Input Value', type: 'input'});
 	};
 	handlePressBottomValue = () => {
-		this.props.navigation.navigate('CurrencyList');
+		this.props.navigation.navigate('CurrencyList', { title: 'Return Value', type: 'return'});
 	};
   
 	render() {
 		const { displayValue } = this.state
 		
-		const clearDisplay = displayValue !== '0'
 		let returnAmount = (parseFloat(displayValue.replace(",", ".")) * this.props.conversionRate).toFixed(2);
 		let returnCorrected = returnAmount === '0.00' ? '0' : returnAmount;
 		if (this.props.isFetching) {
